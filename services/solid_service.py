@@ -1,92 +1,65 @@
 from typing import Dict, List, Any, Optional
 from datetime import datetime
 import uuid
-from solid_auth_client import SolidAuthClient
-from solid_pod import SolidPod
+# import requests  # Uncomment if you want to use HTTP requests to interact with SOLID PODs
 
 class SolidService:
     def __init__(self):
-        self.auth_client = SolidAuthClient()
-        self.pod = SolidPod()
-    
+        pass  # TODO: Implement SOLID POD integration using HTTP requests or another method
+
     def authenticate(self, username: str, password: str) -> Optional[str]:
-        """Authenticate user with SOLID POD."""
-        try:
-            token = self.auth_client.login(username, password)
-            return token
-        except Exception as e:
-            print(f"Authentication error: {str(e)}")
-            return None
-    
+        """Authenticate user with SOLID POD (placeholder)."""
+        # TODO: Implement authentication logic
+        return None
+
     def register_user(self, username: str, password: str, email: str) -> bool:
-        """Register a new user with SOLID POD."""
-        try:
-            self.pod.create_user(username, password, email)
-            return True
-        except Exception as e:
-            print(f"Registration error: {str(e)}")
-            return False
-    
+        """Register a new user with SOLID POD (placeholder)."""
+        # TODO: Implement registration logic
+        return False
+
     def logout(self) -> None:
-        """Logout from SOLID POD."""
-        self.auth_client.logout()
-    
+        """Logout from SOLID POD (placeholder)."""
+        # TODO: Implement logout logic
+        pass
+
     def store_consent(self, consent: 'Consent') -> None:
-        """Store consent record in SOLID POD."""
+        """Store consent record in SOLID POD (placeholder)."""
+        # TODO: Implement storage logic
         consent.id = str(uuid.uuid4())
-        self.pod.store_document(
-            f"consents/{consent.id}",
-            consent.to_dict()
-        )
-    
+        pass
+
     def get_consent(self, consent_id: str) -> Optional['Consent']:
-        """Retrieve consent record from SOLID POD."""
-        try:
-            data = self.pod.get_document(f"consents/{consent_id}")
-            return Consent.from_dict(data)
-        except Exception:
-            return None
-    
+        """Retrieve consent record from SOLID POD (placeholder)."""
+        # TODO: Implement retrieval logic
+        return None
+
     def update_consent(self, consent: 'Consent') -> None:
-        """Update consent record in SOLID POD."""
-        self.pod.update_document(
-            f"consents/{consent.id}",
-            consent.to_dict()
-        )
-    
+        """Update consent record in SOLID POD (placeholder)."""
+        # TODO: Implement update logic
+        pass
+
     def get_user_consents(self, user_id: str) -> List['Consent']:
-        """Get all consent records for a user."""
-        try:
-            consents = self.pod.query_documents(
-                "consents",
-                {"user_id": user_id}
-            )
-            return [Consent.from_dict(c) for c in consents]
-        except Exception:
-            return []
-    
+        """Get all consent records for a user (placeholder)."""
+        # TODO: Implement retrieval logic
+        return []
+
     def get_data(self, user_id: str, data_type: str) -> Dict[str, Any]:
-        """Get specific data type for user."""
-        try:
-            return self.pod.get_document(f"data/{user_id}/{data_type}")
-        except Exception:
-            return {}
-    
+        """Get specific data type for user (placeholder)."""
+        # TODO: Implement retrieval logic
+        return {}
+
     def get_all_data(self, user_id: str) -> Dict[str, Any]:
-        """Get all data for user."""
-        try:
-            return self.pod.get_document(f"data/{user_id}")
-        except Exception:
-            return {}
-    
+        """Get all data for user (placeholder)."""
+        # TODO: Implement retrieval logic
+        return {}
+
     def update_data(self, user_id: str, data: Dict[str, Any]) -> None:
-        """Update user data in SOLID POD."""
-        self.pod.update_document(f"data/{user_id}", data)
-    
+        """Update user data in SOLID POD (placeholder)."""
+        # TODO: Implement update logic
+        pass
+
     def store_data_request(self, request: Dict[str, Any]) -> None:
-        """Store data access request in SOLID POD."""
+        """Store data access request in SOLID POD (placeholder)."""
+        # TODO: Implement storage logic
         request['id'] = str(uuid.uuid4())
-        self.pod.store_document(
-            f"requests/{request['id']}",
-            request
-        ) 
+        pass 
