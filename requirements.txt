@@ -1,0 +1,12 @@
+Flask==2.3.3
+python-dotenv==1.0.0
+requests==2.31.0
+solid-auth-client==0.1.0
+solid-auth-flask==0.1.0
+solid-pod==0.1.0
+Flask-RESTful==0.3.10
+Flask-CORS==4.0.0
+Flask-JWT-Extended==4.5.2
+python-jose==3.3.0
+pydantic==2.3.0
+gunicorn==21.2.0 
