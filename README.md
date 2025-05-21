@@ -2,6 +2,22 @@
 
 A secure and privacy-focused consent management system that leverages SOLID POD for data storage and Flask for API management.
 
+---
+
+## Architecture Diagram
+
+![Digital Consent Architecture](schema.png)
+
+| Component                | Function                                                                 |
+|--------------------------|--------------------------------------------------------------------------|
+| **User**                 | Grants or revokes consent for data sharing.                              |
+| **Solid Pod**            | Stores user data and consent information securely and privately.          |
+| **Service**              | Periodically syncs data from Solid Pod, checks consent status, and serves third-party requests. |
+| **Consent Smart Contract** | Blockchain-based contract that records and verifies consent status for transparency and immutability. |
+| **Third-Party Applications** | Request access to user data; access is granted only if active consent exists. |
+
+---
+
 ## Overview
 
 This system enables users to:
