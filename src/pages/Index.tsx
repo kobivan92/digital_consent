@@ -1,8 +1,10 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, CreditCard, TrendingUp, Banknote, User, Key, CheckCircle } from "lucide-react";
+import { useSearchParams } from 'react-router-dom';
+import { toast } from "@/hooks/use-toast";
 import AuthModal from "@/components/AuthModal";
 import ConsentWaiting from "@/components/ConsentWaiting";
 
@@ -11,6 +13,7 @@ const Index = () => {
   const [showAuth, setShowAuth] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [waitingForConsent, setWaitingForConsent] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const services = [
     {
@@ -39,6 +42,40 @@ const Index = () => {
     }
   ];
 
+  // Handle consent responses from Solid Pod
+  useEffect(() => {
+    const consent = searchParams.get('consent');
+    const service = searchParams.get('service');
+    const sharedData = searchParams.get('data');
+
+    if (consent && service) {
+      if (consent === 'success') {
+        toast({
+          title: "Consent Provided Successfully!",
+          description: `Welcome! You can now access ${service}. Your selected data has been securely shared.`,
+          duration: 5000,
+        });
+        // Clean up URL parameters
+        setSearchParams({});
+      } else if (consent === 'insufficient') {
+        toast({
+          title: "Insufficient Data Provided",
+          description: `Sorry, you need to provide the required data fields to access ${service}.`,
+          variant: "destructive",
+          duration: 5000,
+        });
+        setSearchParams({});
+      } else if (consent === 'declined') {
+        toast({
+          title: "Consent Declined",
+          description: `You have declined to share data with ${service}. You can try again anytime.`,
+          duration: 5000,
+        });
+        setSearchParams({});
+      }
+    }
+  }, [searchParams, setSearchParams]);
+
   const handleServiceSelect = (serviceId: string) => {
     setSelectedService(serviceId);
     setShowAuth(true);
@@ -52,15 +89,18 @@ const Index = () => {
 
   const handleConsentComplete = () => {
     setWaitingForConsent(false);
-    // Here you would typically redirect to the service or show success
-    alert(`Welcome! You can now access ${services.find(s => s.id === selectedService)?.title}`);
     // Reset state
     setSelectedService(null);
     setIsAuthenticated(false);
   };
 
   if (waitingForConsent) {
-    return <ConsentWaiting onConsentComplete={handleConsentComplete} />;
+    return (
+      <ConsentWaiting 
+        onConsentComplete={handleConsentComplete}
+        serviceName={services.find(s => s.id === selectedService)?.title || ''}
+      />
+    );
   }
 
   return (

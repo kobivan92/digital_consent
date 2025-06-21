@@ -7,9 +7,10 @@ import { Progress } from "@/components/ui/progress";
 
 interface ConsentWaitingProps {
   onConsentComplete: () => void;
+  serviceName: string;
 }
 
-const ConsentWaiting = ({ onConsentComplete }: ConsentWaitingProps) => {
+const ConsentWaiting = ({ onConsentComplete, serviceName }: ConsentWaitingProps) => {
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -57,14 +58,15 @@ const ConsentWaiting = ({ onConsentComplete }: ConsentWaitingProps) => {
     return () => clearInterval(stepTimer);
   }, []);
 
-  // Simulate consent completion
+  // Auto-redirect to Solid Pod interface after loading
   useEffect(() => {
-    const completeTimer = setTimeout(() => {
-      onConsentComplete();
-    }, 12000);
+    const redirectTimer = setTimeout(() => {
+      const solidPodUrl = `/solid-pod?service=${encodeURIComponent(serviceName)}`;
+      window.location.href = solidPodUrl;
+    }, 8000);
 
-    return () => clearTimeout(completeTimer);
-  }, [onConsentComplete]);
+    return () => clearTimeout(redirectTimer);
+  }, [serviceName]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4">
@@ -158,7 +160,7 @@ const ConsentWaiting = ({ onConsentComplete }: ConsentWaitingProps) => {
           </Button>
           <Button
             className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90"
-            onClick={() => window.open('#', '_blank')}
+            onClick={() => window.location.href = `/solid-pod?service=${encodeURIComponent(serviceName)}`}
           >
             <ExternalLink className="h-4 w-4 mr-2" />
             Open Solid Pod Interface
