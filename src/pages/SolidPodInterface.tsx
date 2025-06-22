@@ -1,11 +1,12 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, Database, Shield, CheckCircle, AlertTriangle } from "lucide-react";
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { logEvent } from '@/lib/logger';
+import { getGdprReason, getConsentProvidedReason } from '@/lib/reasons';
 
 interface DataField {
   id: string;
@@ -18,10 +19,20 @@ interface DataField {
 const SolidPodInterface = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const serviceName = searchParams.get('service') || 'Banking Service';
+  const serviceId = searchParams.get('service') || 'unknown-service';
+  const serviceName = searchParams.get('serviceName') || 'Banking Service';
   
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  useEffect(() => {
+    logEvent({
+      event: 'data_request',
+      service: serviceName,
+      requestedFields: dataFields.map(f => f.id),
+      reason: getGdprReason(serviceId, serviceName),
+    });
+  }, [serviceId, serviceName]);
 
   const dataFields: DataField[] = [
     { id: 'name', label: 'Full Name', description: 'First and last name', required: true, category: 'basic' },
@@ -49,6 +60,14 @@ const SolidPodInterface = () => {
   const handleProvideConsent = () => {
     setIsProcessing(true);
     
+    logEvent({
+      event: 'consent_provided',
+      service: serviceName,
+      sharedData: selectedData,
+      hasRequired: hasRequiredData,
+      reason: getConsentProvidedReason(serviceName),
+    });
+    
     // Simulate processing delay
     setTimeout(() => {
       if (hasRequiredData) {
@@ -62,6 +81,10 @@ const SolidPodInterface = () => {
   };
 
   const handleDeclineConsent = () => {
+    logEvent({
+      event: 'consent_declined',
+      service: serviceName,
+    });
     navigate(`/?consent=declined&service=${encodeURIComponent(serviceName)}`);
   };
 

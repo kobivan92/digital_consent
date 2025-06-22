@@ -1,21 +1,30 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, CreditCard, TrendingUp, Banknote, User, Key, CheckCircle } from "lucide-react";
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { toast } from "@/hooks/use-toast";
 import AuthModal from "@/components/AuthModal";
 import ConsentWaiting from "@/components/ConsentWaiting";
 
+interface Service {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ElementType;
+  features: string[];
+  gradient: string;
+}
+
 const Index = () => {
-  const [selectedService, setSelectedService] = useState<string | null>(null);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [showAuth, setShowAuth] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [waitingForConsent, setWaitingForConsent] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const services = [
+  const services: Service[] = [
     {
       id: 'personal-banking',
       title: 'Personal Banking',
@@ -76,8 +85,8 @@ const Index = () => {
     }
   }, [searchParams, setSearchParams]);
 
-  const handleServiceSelect = (serviceId: string) => {
-    setSelectedService(serviceId);
+  const handleServiceSelect = (service: Service) => {
+    setSelectedService(service);
     setShowAuth(true);
   };
 
@@ -98,7 +107,8 @@ const Index = () => {
     return (
       <ConsentWaiting 
         onConsentComplete={handleConsentComplete}
-        serviceName={services.find(s => s.id === selectedService)?.title || ''}
+        serviceName={selectedService?.title || ''}
+        serviceId={selectedService?.id || ''}
       />
     );
   }
@@ -184,7 +194,7 @@ const Index = () => {
                       ))}
                     </ul>
                     <Button 
-                      onClick={() => handleServiceSelect(service.id)}
+                      onClick={() => handleServiceSelect(service)}
                       className={`w-full bg-gradient-to-r ${service.gradient} hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl`}
                     >
                       Get Started
@@ -250,7 +260,7 @@ const Index = () => {
           isOpen={showAuth}
           onClose={() => setShowAuth(false)}
           onAuthSuccess={handleAuthSuccess}
-          serviceName={services.find(s => s.id === selectedService)?.title || ''}
+          serviceName={selectedService?.title || ''}
         />
       )}
     </div>

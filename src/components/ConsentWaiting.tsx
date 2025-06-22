@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,9 +7,10 @@ import { Progress } from "@/components/ui/progress";
 interface ConsentWaitingProps {
   onConsentComplete: () => void;
   serviceName: string;
+  serviceId: string;
 }
 
-const ConsentWaiting = ({ onConsentComplete, serviceName }: ConsentWaitingProps) => {
+const ConsentWaiting = ({ onConsentComplete, serviceName, serviceId }: ConsentWaitingProps) => {
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -61,12 +61,12 @@ const ConsentWaiting = ({ onConsentComplete, serviceName }: ConsentWaitingProps)
   // Auto-redirect to Solid Pod interface after loading
   useEffect(() => {
     const redirectTimer = setTimeout(() => {
-      const solidPodUrl = `/solid-pod?service=${encodeURIComponent(serviceName)}`;
+      const solidPodUrl = `/solid-pod?service=${serviceId}&serviceName=${encodeURIComponent(serviceName)}`;
       window.location.href = solidPodUrl;
     }, 8000);
 
     return () => clearTimeout(redirectTimer);
-  }, [serviceName]);
+  }, [serviceName, serviceId]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4">
@@ -160,7 +160,7 @@ const ConsentWaiting = ({ onConsentComplete, serviceName }: ConsentWaitingProps)
           </Button>
           <Button
             className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90"
-            onClick={() => window.location.href = `/solid-pod?service=${encodeURIComponent(serviceName)}`}
+            onClick={() => window.location.href = `/solid-pod?service=${serviceId}&serviceName=${encodeURIComponent(serviceName)}`}
           >
             <ExternalLink className="h-4 w-4 mr-2" />
             Open Solid Pod Interface
