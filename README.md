@@ -109,27 +109,26 @@ graph TB
 ```mermaid
 sequenceDiagram
     participant Bank as 🏦 Bank App
-    participant Router as 🔄 ConsentFlow Router
-    participant Auth as 🔐 Auth Manager
-    participant Pod as 🗄️ Solid Pod
-    participant Consent as 📋 Consent App
-    participant Logger as 📝 Event Logger
-    participant Chain as ⛓️ Blockchain
+    participant ConsentFlow as 🔄 ConsentFlow + Auth
+    participant SolidPod as 🗄️ Solid Pod + Consent App
+    participant Blockchain as ⛓️ Blockchain + Logger
     
-    Bank->>Router: Request user data access
-    Router->>Auth: Authenticate user
-    Auth-->>Router: User verified
-    Router->>Pod: Redirect to consent interface
-    Pod->>Consent: Show data selection interface
-    Consent->>Consent: User selects data fields
-    Consent->>Consent: User grants/denies consent
-    Consent->>Logger: Log consent decision
-    Logger->>Chain: Store immutable record
-    Chain-->>Logger: Transaction confirmed
-    Consent-->>Router: Return consent result
-    Router-->>Bank: Provide access/deny access
+    Bank->>ConsentFlow: Request user data access
+    Bank->>Blockchain: Log data request event
+    ConsentFlow->>ConsentFlow: Authenticate user
+    ConsentFlow->>Blockchain: Log authentication event
+    ConsentFlow->>SolidPod: Redirect to consent interface
+    SolidPod->>SolidPod: Show data selection interface
+    SolidPod->>SolidPod: User selects data fields
+    SolidPod->>SolidPod: User grants/denies consent
+    SolidPod->>Blockchain: Log consent decision
+    Blockchain->>Blockchain: Store immutable record
+    Blockchain-->>SolidPod: Transaction confirmed
+    SolidPod-->>ConsentFlow: Return consent result
+    ConsentFlow->>Blockchain: Log access granted/denied
+    ConsentFlow-->>Bank: Provide access/deny access
     
-    Note over Bank,Chain: Complete GDPR-compliant consent flow
+    Note over Bank,Blockchain: Complete GDPR-compliant consent flow with comprehensive audit trail
 ```
 
 ## 🏦 Third-Party Application (Bank App Example)
