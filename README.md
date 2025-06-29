@@ -438,18 +438,12 @@ graph TB
         StorageLayer[💾 Immutable Storage<br/>Blockchain blocks<br/>Audit trail records]
     end
     
-    subgraph "GDPR Compliance Layer"
+    subgraph "GDPR as Regulation"
         LegalBasisTracker[⚖️ Legal Basis Tracker<br/>Article 6 compliance<br/>Consent validation]
         PurposeLimitation[🎯 Purpose Limitation<br/>Specific use cases<br/>Scope validation]
         DataMinimization[📏 Data Minimization<br/>Minimal data sharing<br/>Field validation]
         RetentionManager[⏰ Retention Manager<br/>Data lifecycle<br/>Deletion schedules]
         WithdrawalTracker[🔄 Withdrawal Tracker<br/>Consent revocation<br/>Right to withdraw]
-    end
-    
-    subgraph "Audit & Reporting"
-        ComplianceReports[📋 Compliance Reports<br/>GDPR Article 30<br/>Processing records]
-        AuditTrail[🔍 Audit Trail<br/>Complete history<br/>Regulatory evidence]
-        DataPortability[📦 Data Portability<br/>Article 20 compliance<br/>Export capabilities]
     end
     
     %% Data flow from sources to blockchain
@@ -468,101 +462,13 @@ graph TB
     StorageLayer --> RetentionManager
     StorageLayer --> WithdrawalTracker
     
-    %% Audit and reporting
-    LegalBasisTracker --> ComplianceReports
-    PurposeLimitation --> ComplianceReports
-    DataMinimization --> ComplianceReports
-    RetentionManager --> ComplianceReports
-    WithdrawalTracker --> ComplianceReports
-    
-    ComplianceReports --> AuditTrail
-    AuditTrail --> DataPortability
-    
     classDef sources fill:#ffebee,stroke:#c62828,stroke-width:2px
     classDef blockchain fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
     classDef gdpr fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    classDef audit fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
     
     class ThirdPartyApps,SolidPods,ConsentFlow sources
     class ValidatorNodes,StreamManager,StorageLayer blockchain
     class LegalBasisTracker,PurposeLimitation,DataMinimization,RetentionManager,WithdrawalTracker gdpr
-    class ComplianceReports,AuditTrail,DataPortability audit
-```
-
-### Blockchain Log Entry Structure
-
-```json
-{
-  "blockchainRecord": {
-    "transactionId": "tx_consent_2024_001_abc123",
-    "timestamp": "2024-01-15T10:30:00Z",
-    "blockNumber": 12345,
-    "blockHash": "0x1234567890abcdef...",
-    "source": {
-      "type": "third_party_app|solid_pod|consentflow",
-      "identifier": "securebank_001|user_pod_123|consentflow_router"
-    }
-  },
-  "consentEvent": {
-    "eventType": "data_request|consent_granted|consent_denied|consent_revoked|data_access|data_deletion",
-    "eventId": "consent_2024_001",
-    "description": "User granted consent for personal banking service"
-  },
-  "parties": {
-    "dataSubject": {
-      "userId": "user_12345",
-      "pseudonym": "anon_abc123",
-      "solidPodUrl": "https://user.solid.com/profile/card#me"
-    },
-    "dataController": {
-      "appId": "securebank_001",
-      "appName": "SecureBank",
-      "serviceType": "personal_banking",
-      "legalEntity": "SecureBank Ltd."
-    }
-  },
-  "dataProcessing": {
-    "requestedFields": ["name", "email", "phone", "address"],
-    "grantedFields": ["name", "email", "phone"],
-    "deniedFields": ["address"],
-    "dataCategories": ["basic_info", "contact_info"],
-    "purpose": "Account creation and verification",
-    "legalBasis": "GDPR_Article_6_1a_Explicit_Consent",
-    "retentionPeriod": "7_years",
-    "processingScope": "account_management_only"
-  },
-  "gdprCompliance": {
-    "explicitConsent": true,
-    "informedConsent": true,
-    "dataMinimization": true,
-    "purposeLimitation": true,
-    "storageLimitation": true,
-    "accuracy": true,
-    "integrity": true,
-    "confidentiality": true,
-    "accountability": true,
-    "rightToWithdraw": true,
-    "rightToAccess": true,
-    "rightToRectification": true,
-    "rightToErasure": true,
-    "rightToPortability": true
-  },
-  "technicalDetails": {
-    "encryptionLevel": "AES-256",
-    "accessControl": "role_based",
-    "auditLogging": true,
-    "dataAnonymization": false,
-    "crossBorderTransfer": false,
-    "subProcessors": []
-  },
-  "auditTrail": {
-    "previousConsents": ["consent_2023_045", "consent_2023_089"],
-    "modifications": [],
-    "withdrawals": [],
-    "dataAccessLog": ["access_2024_001", "access_2024_002"],
-    "complianceChecks": ["check_2024_001"]
-  }
-}
 ```
 
 ### Real-Time Logging Flow
@@ -572,32 +478,31 @@ sequenceDiagram
     participant TP as 🏦 Third-Party App
     participant SP as 🗄️ Solid Pod
     participant CF as 🔄 ConsentFlow
-    participant BC as ⛓️ Blockchain
-    participant AR as 📊 Audit Reports
+    participant BC as ⛓️ Blockchain + Audit
     
-    Note over TP,AR: Every consent-related action is logged
+    Note over TP,BC: Every consent-related action is logged
     
     TP->>BC: Log data request event
     BC->>BC: Validate GDPR compliance
-    BC->>AR: Update audit trail
+    BC->>BC: Update audit trail
     
     SP->>BC: Log consent decision
     BC->>BC: Store immutable record
-    BC->>AR: Update compliance reports
+    BC->>BC: Update compliance reports
     
     CF->>BC: Log authentication event
     BC->>BC: Validate user identity
-    BC->>AR: Update access logs
+    BC->>BC: Update access logs
     
     TP->>BC: Log data access event
     BC->>BC: Verify consent scope
-    BC->>AR: Update usage reports
+    BC->>BC: Update usage reports
     
     SP->>BC: Log consent withdrawal
     BC->>BC: Update consent status
-    BC->>AR: Update withdrawal logs
+    BC->>BC: Update withdrawal logs
     
-    Note over TP,AR: Complete GDPR-compliant audit trail
+    Note over TP,BC: Complete GDPR-compliant audit trail
 ```
 
 ### GDPR Article Compliance Mapping
