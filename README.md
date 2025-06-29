@@ -93,6 +93,16 @@ graph TB
     EventLogger --> Multichain
     Multichain --> AuditTrail
     
+    %% New arrows to Blockchain Audit Layer
+    BankApp --> Multichain
+    OtherApps --> Multichain
+    ConsentRouter --> Multichain
+    AuthManager --> Multichain
+    ConsentValidator --> Multichain
+    SolidPod --> Multichain
+    ConsentApp --> Multichain
+    DataStore --> Multichain
+    
     classDef thirdParty fill:#ffebee,stroke:#c62828,stroke-width:2px
     classDef consentFlow fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
     classDef solidPod fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
@@ -114,9 +124,7 @@ sequenceDiagram
     participant Blockchain as ⛓️ Blockchain + Logger
     
     Bank->>ConsentFlow: Request user data access
-    Bank->>Blockchain: Log data request event
     ConsentFlow->>ConsentFlow: Authenticate user
-    ConsentFlow->>Blockchain: Log authentication event
     ConsentFlow->>SolidPod: Redirect to consent interface
     SolidPod->>SolidPod: Show data selection interface
     SolidPod->>SolidPod: User selects data fields
@@ -125,10 +133,9 @@ sequenceDiagram
     Blockchain->>Blockchain: Store immutable record
     Blockchain-->>SolidPod: Transaction confirmed
     SolidPod-->>ConsentFlow: Return consent result
-    ConsentFlow->>Blockchain: Log access granted/denied
     ConsentFlow-->>Bank: Provide access/deny access
     
-    Note over Bank,Blockchain: Complete GDPR-compliant consent flow with comprehensive audit trail
+    Note over Bank,Blockchain: Complete GDPR-compliant consent flow
 ```
 
 ## 🏦 Third-Party Application (Bank App Example)
