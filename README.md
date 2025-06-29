@@ -1027,3 +1027,79 @@ For support and questions:
 ---
 
 **Note**: This is a demonstration system. For production use, implement proper security measures, error handling, and compliance with local regulations. 
+
+### Blockchain Log Entry Structure
+
+```json
+{
+  "blockchainRecord": {
+    "transactionId": "tx_consent_2024_001_abc123",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "blockNumber": 12345,
+    "blockHash": "0x1234567890abcdef...",
+    "source": {
+      "type": "third_party_app|solid_pod|consentflow",
+      "identifier": "securebank_001|user_pod_123|consentflow_router"
+    }
+  },
+  "consentEvent": {
+    "eventType": "data_request|consent_granted|consent_denied|consent_revoked|data_access|data_deletion",
+    "eventId": "consent_2024_001",
+    "description": "User granted consent for personal banking service"
+  },
+  "parties": {
+    "dataSubject": {
+      "userId": "user_12345",
+      "pseudonym": "anon_abc123",
+      "solidPodUrl": "https://user.solid.com/profile/card#me"
+    },
+    "dataController": {
+      "appId": "securebank_001",
+      "appName": "SecureBank",
+      "serviceType": "personal_banking",
+      "legalEntity": "SecureBank Ltd."
+    }
+  },
+  "dataProcessing": {
+    "requestedFields": ["name", "email", "phone", "address"],
+    "grantedFields": ["name", "email", "phone"],
+    "deniedFields": ["address"],
+    "dataCategories": ["basic_info", "contact_info"],
+    "purpose": "Account creation and verification",
+    "legalBasis": "GDPR_Article_6_1a_Explicit_Consent",
+    "retentionPeriod": "7_years",
+    "processingScope": "account_management_only"
+  },
+  "gdprCompliance": {
+    "explicitConsent": true,
+    "informedConsent": true,
+    "dataMinimization": true,
+    "purposeLimitation": true,
+    "storageLimitation": true,
+    "accuracy": true,
+    "integrity": true,
+    "confidentiality": true,
+    "accountability": true,
+    "rightToWithdraw": true,
+    "rightToAccess": true,
+    "rightToRectification": true,
+    "rightToErasure": true,
+    "rightToPortability": true
+  },
+  "technicalDetails": {
+    "encryptionLevel": "AES-256",
+    "accessControl": "role_based",
+    "auditLogging": true,
+    "dataAnonymization": false,
+    "crossBorderTransfer": false,
+    "subProcessors": []
+  },
+  "auditTrail": {
+    "previousConsents": ["consent_2023_045", "consent_2023_089"],
+    "modifications": [],
+    "withdrawals": [],
+    "dataAccessLog": ["access_2024_001", "access_2024_002"],
+    "complianceChecks": ["check_2024_001"]
+  }
+}
+``` 
