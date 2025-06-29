@@ -420,6 +420,265 @@ graph TD
     class A,B,C,D,E,F,G,H,I,J,K gdprFlow
 ```
 
+## 📊 Blockchain Consent Logging System
+
+### Comprehensive Logging Architecture
+
+```mermaid
+graph TB
+    subgraph "Data Sources"
+        ThirdPartyApps[🏦 Third-Party Applications<br/>Bank, Insurance, Healthcare<br/>Data access requests]
+        SolidPods[🗄️ Solid Pods<br/>User consent decisions<br/>Data field selections]
+        ConsentFlow[🔄 ConsentFlow Router<br/>Authentication events<br/>Routing decisions]
+    end
+    
+    subgraph "Blockchain Network"
+        ValidatorNodes[🔍 Validator Nodes<br/>Consensus validation<br/>Data integrity checks]
+        StreamManager[📊 Stream Manager<br/>Consent event streams<br/>GDPR compliance logs]
+        StorageLayer[💾 Immutable Storage<br/>Blockchain blocks<br/>Audit trail records]
+    end
+    
+    subgraph "GDPR Compliance Layer"
+        LegalBasisTracker[⚖️ Legal Basis Tracker<br/>Article 6 compliance<br/>Consent validation]
+        PurposeLimitation[🎯 Purpose Limitation<br/>Specific use cases<br/>Scope validation]
+        DataMinimization[📏 Data Minimization<br/>Minimal data sharing<br/>Field validation]
+        RetentionManager[⏰ Retention Manager<br/>Data lifecycle<br/>Deletion schedules]
+        WithdrawalTracker[🔄 Withdrawal Tracker<br/>Consent revocation<br/>Right to withdraw]
+    end
+    
+    subgraph "Audit & Reporting"
+        ComplianceReports[📋 Compliance Reports<br/>GDPR Article 30<br/>Processing records]
+        AuditTrail[🔍 Audit Trail<br/>Complete history<br/>Regulatory evidence]
+        DataPortability[📦 Data Portability<br/>Article 20 compliance<br/>Export capabilities]
+    end
+    
+    %% Data flow from sources to blockchain
+    ThirdPartyApps --> ValidatorNodes
+    SolidPods --> ValidatorNodes
+    ConsentFlow --> ValidatorNodes
+    
+    %% Blockchain processing
+    ValidatorNodes --> StreamManager
+    StreamManager --> StorageLayer
+    
+    %% GDPR compliance processing
+    StorageLayer --> LegalBasisTracker
+    StorageLayer --> PurposeLimitation
+    StorageLayer --> DataMinimization
+    StorageLayer --> RetentionManager
+    StorageLayer --> WithdrawalTracker
+    
+    %% Audit and reporting
+    LegalBasisTracker --> ComplianceReports
+    PurposeLimitation --> ComplianceReports
+    DataMinimization --> ComplianceReports
+    RetentionManager --> ComplianceReports
+    WithdrawalTracker --> ComplianceReports
+    
+    ComplianceReports --> AuditTrail
+    AuditTrail --> DataPortability
+    
+    classDef sources fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef blockchain fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef gdpr fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef audit fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    
+    class ThirdPartyApps,SolidPods,ConsentFlow sources
+    class ValidatorNodes,StreamManager,StorageLayer blockchain
+    class LegalBasisTracker,PurposeLimitation,DataMinimization,RetentionManager,WithdrawalTracker gdpr
+    class ComplianceReports,AuditTrail,DataPortability audit
+```
+
+### Blockchain Log Entry Structure
+
+```json
+{
+  "blockchainRecord": {
+    "transactionId": "tx_consent_2024_001_abc123",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "blockNumber": 12345,
+    "blockHash": "0x1234567890abcdef...",
+    "source": {
+      "type": "third_party_app|solid_pod|consentflow",
+      "identifier": "securebank_001|user_pod_123|consentflow_router"
+    }
+  },
+  "consentEvent": {
+    "eventType": "data_request|consent_granted|consent_denied|consent_revoked|data_access|data_deletion",
+    "eventId": "consent_2024_001",
+    "description": "User granted consent for personal banking service"
+  },
+  "parties": {
+    "dataSubject": {
+      "userId": "user_12345",
+      "pseudonym": "anon_abc123",
+      "solidPodUrl": "https://user.solid.com/profile/card#me"
+    },
+    "dataController": {
+      "appId": "securebank_001",
+      "appName": "SecureBank",
+      "serviceType": "personal_banking",
+      "legalEntity": "SecureBank Ltd."
+    }
+  },
+  "dataProcessing": {
+    "requestedFields": ["name", "email", "phone", "address"],
+    "grantedFields": ["name", "email", "phone"],
+    "deniedFields": ["address"],
+    "dataCategories": ["basic_info", "contact_info"],
+    "purpose": "Account creation and verification",
+    "legalBasis": "GDPR_Article_6_1a_Explicit_Consent",
+    "retentionPeriod": "7_years",
+    "processingScope": "account_management_only"
+  },
+  "gdprCompliance": {
+    "explicitConsent": true,
+    "informedConsent": true,
+    "dataMinimization": true,
+    "purposeLimitation": true,
+    "storageLimitation": true,
+    "accuracy": true,
+    "integrity": true,
+    "confidentiality": true,
+    "accountability": true,
+    "rightToWithdraw": true,
+    "rightToAccess": true,
+    "rightToRectification": true,
+    "rightToErasure": true,
+    "rightToPortability": true
+  },
+  "technicalDetails": {
+    "encryptionLevel": "AES-256",
+    "accessControl": "role_based",
+    "auditLogging": true,
+    "dataAnonymization": false,
+    "crossBorderTransfer": false,
+    "subProcessors": []
+  },
+  "auditTrail": {
+    "previousConsents": ["consent_2023_045", "consent_2023_089"],
+    "modifications": [],
+    "withdrawals": [],
+    "dataAccessLog": ["access_2024_001", "access_2024_002"],
+    "complianceChecks": ["check_2024_001"]
+  }
+}
+```
+
+### Real-Time Logging Flow
+
+```mermaid
+sequenceDiagram
+    participant TP as 🏦 Third-Party App
+    participant SP as 🗄️ Solid Pod
+    participant CF as 🔄 ConsentFlow
+    participant BC as ⛓️ Blockchain
+    participant AR as 📊 Audit Reports
+    
+    Note over TP,AR: Every consent-related action is logged
+    
+    TP->>BC: Log data request event
+    BC->>BC: Validate GDPR compliance
+    BC->>AR: Update audit trail
+    
+    SP->>BC: Log consent decision
+    BC->>BC: Store immutable record
+    BC->>AR: Update compliance reports
+    
+    CF->>BC: Log authentication event
+    BC->>BC: Validate user identity
+    BC->>AR: Update access logs
+    
+    TP->>BC: Log data access event
+    BC->>BC: Verify consent scope
+    BC->>AR: Update usage reports
+    
+    SP->>BC: Log consent withdrawal
+    BC->>BC: Update consent status
+    BC->>AR: Update withdrawal logs
+    
+    Note over TP,AR: Complete GDPR-compliant audit trail
+```
+
+### GDPR Article Compliance Mapping
+
+| GDPR Article | Blockchain Log Field | Compliance Verification |
+|--------------|---------------------|------------------------|
+| **Article 6(1)(a)** | `legalBasis: "GDPR_Article_6_1a_Explicit_Consent"` | ✅ Explicit consent recorded |
+| **Article 7** | `gdprCompliance.explicitConsent: true` | ✅ Conditions for consent met |
+| **Article 5(1)(a)** | `gdprCompliance.dataMinimization: true` | ✅ Lawful, fair, transparent |
+| **Article 5(1)(b)** | `gdprCompliance.purposeLimitation: true` | ✅ Purpose limitation |
+| **Article 5(1)(c)** | `gdprCompliance.dataMinimization: true` | ✅ Data minimization |
+| **Article 5(1)(d)** | `gdprCompliance.accuracy: true` | ✅ Accuracy maintained |
+| **Article 5(1)(e)** | `gdprCompliance.storageLimitation: true` | ✅ Storage limitation |
+| **Article 5(1)(f)** | `gdprCompliance.integrity: true` | ✅ Integrity and confidentiality |
+| **Article 15** | `gdprCompliance.rightToAccess: true` | ✅ Right of access |
+| **Article 16** | `gdprCompliance.rightToRectification: true` | ✅ Right to rectification |
+| **Article 17** | `gdprCompliance.rightToErasure: true` | ✅ Right to erasure |
+| **Article 20** | `gdprCompliance.rightToPortability: true` | ✅ Right to data portability |
+| **Article 21** | `gdprCompliance.rightToWithdraw: true` | ✅ Right to object |
+| **Article 30** | `auditTrail` | ✅ Records of processing activities |
+
+### Blockchain Log Categories
+
+```mermaid
+graph LR
+    subgraph "Consent Events"
+        DataRequest[📥 Data Request<br/>Third-party requests]
+        ConsentGranted[✅ Consent Granted<br/>User permissions]
+        ConsentDenied[❌ Consent Denied<br/>User rejections]
+        ConsentRevoked[🔄 Consent Revoked<br/>Withdrawals]
+    end
+    
+    subgraph "Data Processing"
+        DataAccess[👁️ Data Access<br/>Actual usage]
+        DataModification[✏️ Data Modification<br/>Updates/changes]
+        DataDeletion[🗑️ Data Deletion<br/>Erasure requests]
+        DataExport[📦 Data Export<br/>Portability requests]
+    end
+    
+    subgraph "System Events"
+        Authentication[🔐 Authentication<br/>User login/logout]
+        Authorization[🔑 Authorization<br/>Permission checks]
+        Routing[🔄 Routing<br/>Request routing]
+        Validation[✅ Validation<br/>Compliance checks]
+    end
+    
+    subgraph "Compliance Events"
+        AuditCheck[🔍 Audit Check<br/>Compliance verification]
+        ReportGeneration[📋 Report Generation<br/>Regulatory reports]
+        BreachNotification[🚨 Breach Notification<br/>Security incidents]
+        DPOContact[📞 DPO Contact<br/>Data protection officer]
+    end
+    
+    DataRequest --> Blockchain
+    ConsentGranted --> Blockchain
+    ConsentDenied --> Blockchain
+    ConsentRevoked --> Blockchain
+    DataAccess --> Blockchain
+    DataModification --> Blockchain
+    DataDeletion --> Blockchain
+    DataExport --> Blockchain
+    Authentication --> Blockchain
+    Authorization --> Blockchain
+    Routing --> Blockchain
+    Validation --> Blockchain
+    AuditCheck --> Blockchain
+    ReportGeneration --> Blockchain
+    BreachNotification --> Blockchain
+    DPOContact --> Blockchain
+    
+    classDef events fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef processing fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef system fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef compliance fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    
+    class DataRequest,ConsentGranted,ConsentDenied,ConsentRevoked events
+    class DataAccess,DataModification,DataDeletion,DataExport processing
+    class Authentication,Authorization,Routing,Validation system
+    class AuditCheck,ReportGeneration,BreachNotification,DPOContact compliance
+```
+
 ## 🔄 Complete Framework Integration
 
 ### End-to-End Data Flow
