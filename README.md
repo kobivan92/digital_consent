@@ -118,12 +118,12 @@ graph TB
 
 ```mermaid
 sequenceDiagram
-    participant Bank as 🏦 Bank App
+    participant ThirdParty as 🏦 Third-Party App
     participant ConsentFlow as 🔄 ConsentFlow + Auth
     participant SolidPod as 🗄️ Solid Pod + Consent App
     participant Blockchain as ⛓️ Blockchain + Logger
     
-    Bank->>ConsentFlow: Request user data access
+    ThirdParty->>ConsentFlow: Request user data access
     ConsentFlow->>ConsentFlow: Authenticate user
     ConsentFlow->>SolidPod: Redirect to consent interface
     SolidPod->>SolidPod: Show data selection interface
@@ -132,10 +132,9 @@ sequenceDiagram
     SolidPod->>Blockchain: Log consent decision
     Blockchain->>Blockchain: Store immutable record
     Blockchain-->>SolidPod: Transaction confirmed
-    SolidPod-->>ConsentFlow: Return consent result
-    ConsentFlow-->>Bank: Provide access/deny access
+    SolidPod-->>ThirdParty: Return consent result directly
     
-    Note over Bank,Blockchain: Complete GDPR-compliant consent flow
+    Note over ThirdParty,Blockchain: Complete GDPR-compliant consent flow
 ```
 
 ## 🏦 Third-Party Application (Bank App Example)
