@@ -1,3 +1,9 @@
+You're right, I need to actually apply the changes to the README file. Let me update it now.
+
+Read file: README.md
+I can see the current README still has all the charts and React mentions. Let me create a completely new version with only the Component Interaction Flow chart and no React mentions:
+
+```markdown:README.md
 # Digital Consent Management System
 
 A comprehensive digital consent management system that demonstrates secure, transparent, and user-controlled data sharing between financial services and users through Solid Pods and blockchain logging.
@@ -6,120 +12,38 @@ A comprehensive digital consent management system that demonstrates secure, tran
 
 The system implements a modern consent management architecture with four core components working together to provide secure, auditable, and user-controlled data sharing:
 
-```mermaid
-graph TB
-    subgraph "User Layer"
-        User[👤 End User]
-        Browser[🌐 Web Browser]
-    end
-    
-    subgraph "Frontend Layer"
-        ReactApp[⚛️ React Application<br/>Consent Bank Connect]
-        AuthModal[🔐 Authentication Modal]
-        ConsentWaiting[⏳ Consent Waiting Screen]
-        SolidPodInterface[📊 Solid Pod Interface]
-    end
-    
-    subgraph "Backend Services"
-        FlaskAPI[🐍 Flask API Server<br/>Logging Service]
-        AuthService[🔑 Authentication Service]
-        BlockchainLogger[⛓️ Blockchain Logger]
-    end
-    
-    subgraph "External Services"
-        SolidPod[🗄️ Solid Pod<br/>Personal Data Store]
-        Multichain[🔗 Multichain<br/>Blockchain Network]
-    end
-    
-    User --> Browser
-    Browser --> ReactApp
-    ReactApp --> AuthModal
-    ReactApp --> ConsentWaiting
-    ReactApp --> SolidPodInterface
-    ReactApp --> FlaskAPI
-    FlaskAPI --> AuthService
-    FlaskAPI --> BlockchainLogger
-    SolidPodInterface --> SolidPod
-    BlockchainLogger --> Multichain
-    
-    classDef userLayer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    classDef frontendLayer fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-    classDef backendLayer fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
-    classDef externalLayer fill:#fff3e0,stroke:#e65100,stroke-width:2px
-    
-    class User,Browser userLayer
-    class ReactApp,AuthModal,ConsentWaiting,SolidPodInterface frontendLayer
-    class FlaskAPI,AuthService,BlockchainLogger backendLayer
-    class SolidPod,Multichain externalLayer
-```
+**User Layer**: End users interact with the system through web browsers, accessing the frontend application interface.
+
+**Frontend Layer**: The frontend application (Consent Bank Connect) provides the main user interface, including authentication modals, consent waiting screens, and Solid Pod interfaces for data management.
+
+**Backend Services**: A Flask API server handles logging services, authentication, and blockchain integration through dedicated services.
+
+**External Services**: Solid Pods serve as personal data stores, while Multichain provides the blockchain network for immutable logging.
+
+The system flow connects users through browsers to the frontend app, which communicates with backend services for authentication and logging, while integrating with external Solid Pod storage and blockchain networks.
 
 ## 🎯 Digital Consent Framework Components
 
-### Framework Overview Chart
+### Framework Overview
 
-```mermaid
-graph TB
-    subgraph "Third-Party Applications"
-        BankApp[🏦 Bank Application<br/>Example: SecureBank<br/>Requests user data access]
-        OtherApps[📱 Other Third-Party Apps<br/>Insurance, Healthcare, etc.]
-    end
-    
-    subgraph "ConsentFlow Intermediate Layer"
-        ConsentRouter[🔄 ConsentFlow Router<br/>Manages routing between apps<br/>and Solid Pods]
-        AuthManager[🔐 Authentication Manager<br/>Handles user verification]
-        ConsentValidator[✅ Consent Validator<br/>Validates consent requests]
-        EventLogger[📝 Event Logger<br/>Records all consent activities]
-    end
-    
-    subgraph "Solid Pod Ecosystem"
-        SolidPod[🗄️ Solid Pod<br/>Personal Data Container<br/>User-controlled storage]
-        ConsentApp[📋 Consent Management App<br/>Give/Revoke permissions<br/>Data field selection]
-        DataStore[💾 Personal Data Store<br/>Encrypted user data<br/>Structured by categories]
-    end
-    
-    subgraph "Blockchain Audit Layer"
-        Multichain[⛓️ Multichain Blockchain<br/>Immutable consent logs<br/>GDPR compliance records]
-        AuditTrail[📊 Audit Trail<br/>Complete consent history<br/>Regulatory compliance]
-    end
-    
-    BankApp --> ConsentRouter
-    OtherApps --> ConsentRouter
-    ConsentRouter --> AuthManager
-    ConsentRouter --> ConsentValidator
-    ConsentRouter --> SolidPod
-    SolidPod --> ConsentApp
-    ConsentApp --> DataStore
-    ConsentValidator --> EventLogger
-    EventLogger --> Multichain
-    Multichain --> AuditTrail
-    
-    %% New arrows to Blockchain Audit Layer
-    BankApp --> Multichain
-    OtherApps --> Multichain
-    ConsentRouter --> Multichain
-    AuthManager --> Multichain
-    ConsentValidator --> Multichain
-    SolidPod --> Multichain
-    ConsentApp --> Multichain
-    DataStore --> Multichain
-    
-    classDef thirdParty fill:#ffebee,stroke:#c62828,stroke-width:2px
-    classDef consentFlow fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    classDef solidPod fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    classDef blockchain fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
-    
-    class BankApp,OtherApps thirdParty
-    class ConsentRouter,AuthManager,ConsentValidator,EventLogger consentFlow
-    class SolidPod,ConsentApp,DataStore solidPod
-    class Multichain,AuditTrail blockchain
-```
+The framework consists of four main layers:
+
+**Third-Party Applications**: Financial institutions like banks, insurance companies, and healthcare providers that request user data access. These applications initiate data requests and receive consent results directly from user Solid Pods.
+
+**ConsentFlow Intermediate Layer**: A routing and authentication system that manages requests between third-party apps and user Solid Pods. It includes authentication management, consent validation, and event logging for all consent activities.
+
+**Solid Pod Ecosystem**: User-controlled personal data containers that store encrypted user data and provide consent management interfaces. Users can select specific data fields and grant or revoke permissions through dedicated consent applications.
+
+**Blockchain Audit Layer**: A Multichain blockchain network that provides immutable consent logs and GDPR compliance records, creating a complete audit trail for regulatory compliance.
+
+All components connect to the blockchain audit layer, ensuring every consent-related action is logged for compliance and transparency.
 
 ### Component Interaction Flow
 
 ```mermaid
 sequenceDiagram
     participant ThirdParty as 🏦 Third-Party App
-    participant ConsentFlow as 🔄 ConsentFlow + Auth
+    participant ConsentFlow as �� ConsentFlow + Auth
     participant SolidPod as 🗄️ Solid Pod + Consent App
     participant Blockchain as ⛓️ Blockchain + Logger
     
@@ -141,228 +65,151 @@ sequenceDiagram
 
 ### Bank Application Architecture
 
-```mermaid
-graph LR
-    subgraph "SecureBank Application"
-        UI[🎨 User Interface<br/>Service selection<br/>Account management]
-        Auth[🔐 Authentication<br/>User login<br/>Session management]
-        API[🌐 API Client<br/>Data requests<br/>Service integration]
-        Storage[💾 Local Storage<br/>User preferences<br/>Session data]
-    end
-    
-    subgraph "Bank Services"
-        Banking[🏦 Banking Services<br/>Account management<br/>Transactions]
-        Investment[📈 Investment Services<br/>Portfolio management<br/>Trading]
-        Credit[💳 Credit Services<br/>Loans<br/>Credit cards]
-    end
-    
-    UI --> Auth
-    UI --> API
-    Auth --> Storage
-    API --> Banking
-    API --> Investment
-    API --> Credit
-    
-    classDef bankApp fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    classDef services fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
-    
-    class UI,Auth,API,Storage bankApp
-    class Banking,Investment,Credit services
-```
+The SecureBank application consists of several interconnected components:
+
+**User Interface**: Provides service selection and account management capabilities through an intuitive web interface.
+
+**Authentication System**: Handles user login, session management, and secure credential verification.
+
+**API Client**: Manages data requests and service integration with external systems and user Solid Pods.
+
+**Local Storage**: Stores user preferences and session data for improved user experience.
+
+**Banking Services**: Core financial services including account management and transaction processing.
+
+**Investment Services**: Portfolio management and trading capabilities for investment products.
+
+**Credit Services**: Loan processing and credit card management services.
+
+The application flow connects the user interface to authentication and API services, which then integrate with various banking, investment, and credit services.
 
 ### Bank App Data Request Flow
 
-```mermaid
-graph TD
-    A[User selects banking service] --> B[Bank app requests user data]
-    B --> C{Data available locally?}
-    C -->|Yes| D[Use cached data]
-    C -->|No| E[Request from Solid Pod]
-    E --> F[Redirect to ConsentFlow]
-    F --> G[User authenticates]
-    G --> H[Show consent interface]
-    H --> I[User grants consent]
-    I --> J[Data shared with bank]
-    J --> K[Bank provides service]
-    D --> K
-    
-    classDef bankFlow fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    class A,B,C,D,E,F,G,H,I,J,K bankFlow
-```
+The data request process follows a systematic approach:
+
+1. User selects a banking service from the application interface
+2. Bank app requests necessary user data for service provision
+3. System checks if required data is available locally
+4. If data exists locally, it uses cached information
+5. If data is not available, the app requests access from user's Solid Pod
+6. User is redirected to ConsentFlow for authentication
+7. After successful authentication, consent interface is displayed
+8. User grants consent for specific data fields
+9. Data is securely shared with the bank application
+10. Bank provides the requested service using the shared data
 
 ## 🔄 ConsentFlow Intermediate Application
 
 ### ConsentFlow Router Architecture
 
-```mermaid
-graph TB
-    subgraph "ConsentFlow Router"
-        RequestHandler[📥 Request Handler<br/>Receives data requests<br/>Validates requests]
-        AuthService[🔐 Authentication Service<br/>User verification<br/>Session management]
-        ConsentManager[📋 Consent Manager<br/>Manages consent flows<br/>Validates permissions]
-        Router[🔄 Router<br/>Routes to appropriate<br/>Solid Pods]
-        Logger[📝 Logger<br/>Records all activities<br/>GDPR compliance]
-    end
-    
-    subgraph "External Integrations"
-        ThirdPartyApps[📱 Third-Party Apps<br/>Bank, Insurance, etc.]
-        SolidPods[🗄️ Solid Pods<br/>User data stores]
-        Blockchain[⛓️ Blockchain<br/>Audit trail]
-    end
-    
-    ThirdPartyApps --> RequestHandler
-    RequestHandler --> AuthService
-    RequestHandler --> ConsentManager
-    ConsentManager --> Router
-    Router --> SolidPods
-    Logger --> Blockchain
-    
-    classDef consentFlow fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
-    
-    class RequestHandler,AuthService,ConsentManager,Router,Logger consentFlow
-    class ThirdPartyApps,SolidPods,Blockchain external
-```
+The ConsentFlow router serves as the central coordination system with several key components:
+
+**Request Handler**: Receives and validates data requests from third-party applications, ensuring proper format and authentication.
+
+**Authentication Service**: Manages user verification and session management for secure access control.
+
+**Consent Manager**: Handles consent flows and validates permissions against existing user preferences.
+
+**Router**: Directs requests to appropriate Solid Pods based on user identity and service requirements.
+
+**Logger**: Records all consent activities for GDPR compliance and audit purposes.
+
+**External Integrations**: Connects with third-party apps, user Solid Pods, and blockchain networks for comprehensive data flow management.
+
+The router processes requests through authentication, consent validation, and routing stages before logging activities to the blockchain.
 
 ### ConsentFlow Routing Logic
 
-```mermaid
-graph TD
-    A[Third-party app request] --> B[Validate request format]
-    B --> C{Request valid?}
-    C -->|No| D[Return error]
-    C -->|Yes| E[Authenticate user]
-    E --> F{User authenticated?}
-    F -->|No| G[Redirect to login]
-    F -->|Yes| H[Check existing consent]
-    H --> I{Consent exists?}
-    I -->|Yes| J[Validate consent scope]
-    I -->|No| K[Route to Solid Pod]
-    J --> L{Scope sufficient?}
-    L -->|Yes| M[Grant access]
-    L -->|No| K
-    K --> N[User manages consent]
-    N --> O[Log consent decision]
-    O --> P[Store in blockchain]
-    P --> Q[Return result]
-    
-    classDef flow fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    class A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q flow
-```
+The routing process follows a comprehensive decision tree:
+
+1. Third-party app submits a data request
+2. System validates the request format and parameters
+3. If request is invalid, an error is returned
+4. If valid, user authentication is performed
+5. If authentication fails, user is redirected to login
+6. If authenticated, system checks for existing consent
+7. If consent exists, scope is validated against current request
+8. If scope is sufficient, access is granted
+9. If no consent exists or scope is insufficient, user is routed to Solid Pod
+10. User manages consent through Solid Pod interface
+11. Consent decision is logged to blockchain
+12. Result is returned to requesting application
 
 ## 🗄️ Solid Pod - Personal Data Container
 
 ### Solid Pod Architecture
 
-```mermaid
-graph TB
-    subgraph "Solid Pod Container"
-        PodApp[📱 Pod Application<br/>Consent management<br/>Data visualization]
-        DataManager[💾 Data Manager<br/>CRUD operations<br/>Data validation]
-        ConsentInterface[📋 Consent Interface<br/>Permission management<br/>Data field selection]
-        Security[🔒 Security Layer<br/>Encryption<br/>Access control]
-    end
-    
-    subgraph "Data Storage"
-        BasicInfo[👤 Basic Information<br/>Name, Email, Phone]
-        ContactInfo[📞 Contact Details<br/>Address, Emergency contacts]
-        PersonalInfo[🎭 Personal Data<br/>DOB, Marital status]
-        ProfessionalInfo[💼 Professional Data<br/>Job, Income, Employer]
-        FinancialInfo[💰 Financial Data<br/>Bank accounts, Credit history]
-    end
-    
-    subgraph "Consent Management"
-        ActiveConsents[✅ Active Consents<br/>Current permissions]
-        ConsentHistory[📜 Consent History<br/>Past decisions]
-        RevocationLog[❌ Revocation Log<br/>Withdrawn permissions]
-    end
-    
-    PodApp --> DataManager
-    DataManager --> Security
-    ConsentInterface --> ActiveConsents
-    ActiveConsents --> ConsentHistory
-    ConsentHistory --> RevocationLog
-    Security --> BasicInfo
-    Security --> ContactInfo
-    Security --> PersonalInfo
-    Security --> ProfessionalInfo
-    Security --> FinancialInfo
-    
-    classDef pod fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    classDef data fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
-    classDef consent fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    
-    class PodApp,DataManager,ConsentInterface,Security pod
-    class BasicInfo,ContactInfo,PersonalInfo,ProfessionalInfo,FinancialInfo data
-    class ActiveConsents,ConsentHistory,RevocationLog consent
-```
+The Solid Pod container provides a comprehensive personal data management system:
+
+**Pod Application**: Main interface for consent management and data visualization, allowing users to control their personal information.
+
+**Data Manager**: Handles CRUD operations and data validation for all stored information.
+
+**Consent Interface**: Manages permission settings and data field selection for third-party access.
+
+**Security Layer**: Provides encryption and access control for all stored data.
+
+**Data Storage Categories**:
+- Basic Information: Name, email, phone number
+- Contact Details: Address and emergency contact information
+- Personal Data: Date of birth, marital status
+- Professional Information: Job position, employer, income
+- Financial Data: Bank accounts, credit history
+
+**Consent Management**:
+- Active Consents: Current permissions granted to third parties
+- Consent History: Complete record of past consent decisions
+- Revocation Log: Track of withdrawn permissions
+
+The pod application connects to data management and security layers, which protect various categories of personal information while maintaining comprehensive consent records.
 
 ### Solid Pod Consent Management Flow
 
-```mermaid
-graph LR
-    A[Consent request received] --> B[Show data categories]
-    B --> C[User selects data fields]
-    C --> D[User sets permissions]
-    D --> E[Validate required fields]
-    E --> F{Required fields selected?}
-    F -->|No| G[Show error message]
-    F -->|Yes| H[Create consent record]
-    H --> I[Encrypt shared data]
-    I --> J[Send to requesting app]
-    J --> K[Log consent decision]
-    K --> L[Update consent history]
-    
-    classDef podFlow fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    class A,B,C,D,E,F,G,H,I,J,K,L podFlow
-```
+The consent management process follows a user-centric approach:
+
+1. Consent request is received from third-party application
+2. System displays available data categories to user
+3. User selects specific data fields for sharing
+4. User sets permission levels and access duration
+5. System validates that required fields are selected
+6. If required fields are missing, error message is shown
+7. If validation passes, consent record is created
+8. Selected data is encrypted for secure sharing
+9. Encrypted data is sent to requesting application
+10. Consent decision is logged for audit purposes
+11. Consent history is updated with new record
 
 ## ⛓️ Blockchain - GDPR Compliance Audit Trail
 
 ### Blockchain Architecture for Consent Logging
 
-```mermaid
-graph TB
-    subgraph "Multichain Network"
-        Nodes[🖥️ Network Nodes<br/>Distributed validation<br/>Consensus mechanism]
-        Streams[📊 Data Streams<br/>Consent events<br/>Audit records]
-        Wallets[👛 Digital Wallets<br/>User identities<br/>Transaction signing]
-    end
-    
-    subgraph "Consent Event Types"
-        DataRequest[📥 Data Request Events<br/>Third-party requests]
-        ConsentGranted[✅ Consent Granted Events<br/>User permissions given]
-        ConsentDenied[❌ Consent Denied Events<br/>User permissions denied]
-        ConsentRevoked[🔄 Consent Revoked Events<br/>Permissions withdrawn]
-        DataAccess[👁️ Data Access Events<br/>Actual data usage]
-    end
-    
-    subgraph "GDPR Compliance"
-        LegalBasis[⚖️ Legal Basis Tracking<br/>Article 6 compliance]
-        PurposeLimitation[🎯 Purpose Limitation<br/>Specific use cases]
-        DataMinimization[📏 Data Minimization<br/>Minimal data sharing]
-        RetentionPeriod[⏰ Retention Periods<br/>Data lifecycle management]
-        RightToBeForgotten[🗑️ Right to be Forgotten<br/>Data deletion requests]
-    end
-    
-    Nodes --> Streams
-    Streams --> Wallets
-    DataRequest --> LegalBasis
-    ConsentGranted --> PurposeLimitation
-    ConsentDenied --> DataMinimization
-    ConsentRevoked --> RightToBeForgotten
-    DataAccess --> RetentionPeriod
-    
-    classDef blockchain fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
-    classDef events fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    classDef gdpr fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    
-    class Nodes,Streams,Wallets blockchain
-    class DataRequest,ConsentGranted,ConsentDenied,ConsentRevoked,DataAccess events
-    class LegalBasis,PurposeLimitation,DataMinimization,RetentionPeriod,RightToBeForgotten gdpr
-```
+The Multichain network provides a robust foundation for consent logging:
+
+**Network Nodes**: Distributed validation system with consensus mechanisms ensuring data integrity across the network.
+
+**Data Streams**: Dedicated channels for consent events and audit records, organized by event type and compliance requirements.
+
+**Digital Wallets**: User identity management and transaction signing for secure blockchain interactions.
+
+**Consent Event Types**:
+- Data Request Events: Third-party application requests for user data
+- Consent Granted Events: User permissions given to specific applications
+- Consent Denied Events: User rejections of data access requests
+- Consent Revoked Events: Withdrawal of previously granted permissions
+- Data Access Events: Actual usage of shared data by third parties
+
+**GDPR Compliance Features**:
+- Legal Basis Tracking: Article 6 compliance verification
+- Purpose Limitation: Specific use case validation
+- Data Minimization: Minimal data sharing enforcement
+- Retention Periods: Data lifecycle management
+- Right to be Forgotten: Data deletion request handling
+
+The blockchain processes events through validation nodes, stores them in immutable blocks, and maintains comprehensive GDPR compliance records.
 
 ### Blockchain Event Schema
+
+Each consent event is recorded with comprehensive metadata:
 
 ```json
 {
@@ -403,289 +250,152 @@ graph TB
 
 ### GDPR Compliance Tracking
 
-```mermaid
-graph TD
-    A[Consent event occurs] --> B[Validate GDPR requirements]
-    B --> C{All requirements met?}
-    C -->|No| D[Flag compliance issue]
-    C -->|Yes| E[Create blockchain record]
-    E --> F[Include legal basis]
-    F --> G[Set retention period]
-    G --> H[Record purpose limitation]
-    H --> I[Enable withdrawal mechanism]
-    I --> J[Store immutable record]
-    J --> K[Generate audit trail]
-    
-    classDef gdprFlow fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    class A,B,C,D,E,F,G,H,I,J,K gdprFlow
-```
+The compliance tracking process ensures regulatory adherence:
 
-## 📊 Blockchain Consent Logging System
+1. Consent event occurs in the system
+2. GDPR requirements are validated against the event
+3. If requirements are not met, compliance issue is flagged
+4. If compliant, blockchain record is created
+5. Legal basis is included in the record
+6. Retention period is set according to data type
+7. Purpose limitation is recorded
+8. Withdrawal mechanism is enabled
+9. Immutable record is stored in blockchain
+10. Audit trail is generated for regulatory reporting
+
+## �� Blockchain Consent Logging System
 
 ### Comprehensive Logging Architecture
 
-```mermaid
-graph TB
-    subgraph "Data Sources"
-        ThirdPartyApps[🏦 Third-Party Applications<br/>Bank, Insurance, Healthcare<br/>Data access requests]
-        SolidPods[🗄️ Solid Pods<br/>User consent decisions<br/>Data field selections]
-        ConsentFlow[🔄 ConsentFlow Router<br/>Authentication events<br/>Routing decisions]
-    end
-    
-    subgraph "Blockchain Network"
-        ValidatorNodes[🔍 Validator Nodes<br/>Consensus validation<br/>Data integrity checks]
-        StreamManager[📊 Stream Manager<br/>Consent event streams<br/>GDPR compliance logs]
-        StorageLayer[💾 Immutable Storage<br/>Blockchain blocks<br/>Audit trail records]
-    end
-    
-    subgraph "GDPR as Regulation"
-        LegalBasisTracker[⚖️ Legal Basis Tracker<br/>Article 6 compliance<br/>Consent validation]
-        PurposeLimitation[🎯 Purpose Limitation<br/>Specific use cases<br/>Scope validation]
-        DataMinimization[📏 Data Minimization<br/>Minimal data sharing<br/>Field validation]
-        RetentionManager[⏰ Retention Manager<br/>Data lifecycle<br/>Deletion schedules]
-        WithdrawalTracker[🔄 Withdrawal Tracker<br/>Consent revocation<br/>Right to withdraw]
-    end
-    
-    %% Data flow from sources to blockchain
-    ThirdPartyApps --> ValidatorNodes
-    SolidPods --> ValidatorNodes
-    ConsentFlow --> ValidatorNodes
-    
-    %% Blockchain processing
-    ValidatorNodes --> StreamManager
-    StreamManager --> StorageLayer
-    
-    %% GDPR compliance processing
-    StorageLayer --> LegalBasisTracker
-    StorageLayer --> PurposeLimitation
-    StorageLayer --> DataMinimization
-    StorageLayer --> RetentionManager
-    StorageLayer --> WithdrawalTracker
-    
-    classDef sources fill:#ffebee,stroke:#c62828,stroke-width:2px
-    classDef blockchain fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
-    classDef gdpr fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    
-    class ThirdPartyApps,SolidPods,ConsentFlow sources
-    class ValidatorNodes,StreamManager,StorageLayer blockchain
-    class LegalBasisTracker,PurposeLimitation,DataMinimization,RetentionManager,WithdrawalTracker gdpr
-```
+The logging system integrates multiple data sources and processing layers:
+
+**Data Sources**:
+- Third-Party Applications: Banks, insurance companies, healthcare providers initiating data access requests
+- Solid Pods: User consent decisions and data field selections from personal data stores
+- ConsentFlow Router: Authentication events and routing decisions from the intermediate layer
+
+**Blockchain Network**:
+- Validator Nodes: Consensus validation and data integrity checks across the network
+- Stream Manager: Consent event streams and GDPR compliance log management
+- Storage Layer: Immutable blockchain blocks and audit trail records
+
+**GDPR as Regulation**:
+- Legal Basis Tracker: Article 6 compliance and consent validation
+- Purpose Limitation: Specific use case validation and scope verification
+- Data Minimization: Minimal data sharing enforcement and field validation
+- Retention Manager: Data lifecycle management and deletion scheduling
+- Withdrawal Tracker: Consent revocation and right to withdraw implementation
+
+Data flows from sources through validator nodes to stream management and storage layers, with comprehensive GDPR compliance processing at each stage.
 
 ### Real-Time Logging Flow
 
-```mermaid
-sequenceDiagram
-    participant TP as 🏦 Third-Party App
-    participant SP as 🗄️ Solid Pod
-    participant CF as 🔄 ConsentFlow
-    participant BC as ⛓️ Blockchain + Audit
-    
-    Note over TP,BC: Every consent-related action is logged
-    
-    TP->>BC: Log data request event
-    BC->>BC: Validate GDPR compliance
-    BC->>BC: Update audit trail
-    
-    SP->>BC: Log consent decision
-    BC->>BC: Store immutable record
-    BC->>BC: Update compliance reports
-    
-    CF->>BC: Log authentication event
-    BC->>BC: Validate user identity
-    BC->>BC: Update access logs
-    
-    TP->>BC: Log data access event
-    BC->>BC: Verify consent scope
-    BC->>BC: Update usage reports
-    
-    SP->>BC: Log consent withdrawal
-    BC->>BC: Update consent status
-    BC->>BC: Update withdrawal logs
-    
-    Note over TP,BC: Complete GDPR-compliant audit trail
-```
+The real-time logging process ensures immediate compliance tracking:
+
+1. Third-party app logs data request event to blockchain
+2. System validates GDPR compliance requirements
+3. Audit trail is updated with new request record
+4. Solid Pod logs user consent decision
+5. Immutable record is stored in blockchain
+6. Compliance reports are updated with new consent
+7. ConsentFlow logs authentication event
+8. User identity is validated and access logs updated
+9. Third-party app logs actual data access event
+10. Consent scope is verified against usage
+11. Usage reports are updated with access details
+12. Solid Pod logs consent withdrawal if requested
+13. Consent status is updated in blockchain
+14. Withdrawal logs are updated for audit purposes
+
+This creates a complete GDPR-compliant audit trail covering all consent-related activities.
 
 ### GDPR Article Compliance Mapping
 
-| GDPR Article | Blockchain Log Field | Compliance Verification |
-|--------------|---------------------|------------------------|
-| **Article 6(1)(a)** | `legalBasis: "GDPR_Article_6_1a_Explicit_Consent"` | ✅ Explicit consent recorded |
-| **Article 7** | `gdprCompliance.explicitConsent: true` | ✅ Conditions for consent met |
-| **Article 5(1)(a)** | `gdprCompliance.dataMinimization: true` | ✅ Lawful, fair, transparent |
-| **Article 5(1)(b)** | `gdprCompliance.purposeLimitation: true` | ✅ Purpose limitation |
-| **Article 5(1)(c)** | `gdprCompliance.dataMinimization: true` | ✅ Data minimization |
-| **Article 5(1)(d)** | `gdprCompliance.accuracy: true` | ✅ Accuracy maintained |
-| **Article 5(1)(e)** | `gdprCompliance.storageLimitation: true` | ✅ Storage limitation |
-| **Article 5(1)(f)** | `gdprCompliance.integrity: true` | ✅ Integrity and confidentiality |
-| **Article 15** | `gdprCompliance.rightToAccess: true` | ✅ Right of access |
-| **Article 16** | `gdprCompliance.rightToRectification: true` | ✅ Right to rectification |
-| **Article 17** | `gdprCompliance.rightToErasure: true` | ✅ Right to erasure |
-| **Article 20** | `gdprCompliance.rightToPortability: true` | ✅ Right to data portability |
-| **Article 21** | `gdprCompliance.rightToWithdraw: true` | ✅ Right to object |
-| **Article 30** | `auditTrail` | ✅ Records of processing activities |
+The system maps directly to GDPR requirements:
+
+- **Article 6(1)(a)**: Explicit consent recorded with legal basis tracking
+- **Article 7**: Conditions for consent met through explicit consent validation
+- **Article 5(1)(a)**: Lawful, fair, transparent processing through data minimization
+- **Article 5(1)(b)**: Purpose limitation enforced through scope validation
+- **Article 5(1)(c)**: Data minimization through field selection requirements
+- **Article 5(1)(d)**: Accuracy maintained through validation processes
+- **Article 5(1)(e)**: Storage limitation through retention period management
+- **Article 5(1)(f)**: Integrity and confidentiality through encryption
+- **Article 15**: Right of access through data portability features
+- **Article 16**: Right to rectification through data modification capabilities
+- **Article 17**: Right to erasure through deletion mechanisms
+- **Article 20**: Right to data portability through export features
+- **Article 21**: Right to object through withdrawal mechanisms
+- **Article 30**: Records of processing activities through audit trail
 
 ### Blockchain Log Categories
 
-```mermaid
-graph LR
-    subgraph "Consent Events"
-        DataRequest[📥 Data Request<br/>Third-party requests]
-        ConsentGranted[✅ Consent Granted<br/>User permissions]
-        ConsentDenied[❌ Consent Denied<br/>User rejections]
-        ConsentRevoked[🔄 Consent Revoked<br/>Withdrawals]
-    end
-    
-    subgraph "Data Processing"
-        DataAccess[👁️ Data Access<br/>Actual usage]
-        DataModification[✏️ Data Modification<br/>Updates/changes]
-        DataDeletion[🗑️ Data Deletion<br/>Erasure requests]
-        DataExport[📦 Data Export<br/>Portability requests]
-    end
-    
-    subgraph "System Events"
-        Authentication[🔐 Authentication<br/>User login/logout]
-        Authorization[🔑 Authorization<br/>Permission checks]
-        Routing[🔄 Routing<br/>Request routing]
-        Validation[✅ Validation<br/>Compliance checks]
-    end
-    
-    subgraph "Compliance Events"
-        AuditCheck[🔍 Audit Check<br/>Compliance verification]
-        ReportGeneration[📋 Report Generation<br/>Regulatory reports]
-        BreachNotification[🚨 Breach Notification<br/>Security incidents]
-        DPOContact[📞 DPO Contact<br/>Data protection officer]
-    end
-    
-    DataRequest --> Blockchain
-    ConsentGranted --> Blockchain
-    ConsentDenied --> Blockchain
-    ConsentRevoked --> Blockchain
-    DataAccess --> Blockchain
-    DataModification --> Blockchain
-    DataDeletion --> Blockchain
-    DataExport --> Blockchain
-    Authentication --> Blockchain
-    Authorization --> Blockchain
-    Routing --> Blockchain
-    Validation --> Blockchain
-    AuditCheck --> Blockchain
-    ReportGeneration --> Blockchain
-    BreachNotification --> Blockchain
-    DPOContact --> Blockchain
-    
-    classDef events fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    classDef processing fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    classDef system fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
-    classDef compliance fill:#fce4ec,stroke:#c2185b,stroke-width:2px
-    
-    class DataRequest,ConsentGranted,ConsentDenied,ConsentRevoked events
-    class DataAccess,DataModification,DataDeletion,DataExport processing
-    class Authentication,Authorization,Routing,Validation system
-    class AuditCheck,ReportGeneration,BreachNotification,DPOContact compliance
-```
+The system categorizes all logged events for comprehensive tracking:
 
-## 🔄 Complete Framework Integration
+**Consent Events**: Data requests from third parties, consent granted by users, consent denied, and consent revoked events.
+
+**Data Processing**: Actual data access, modifications, deletions, and export requests for data portability.
+
+**System Events**: Authentication activities, authorization checks, request routing, and validation processes.
+
+**Compliance Events**: Audit checks, regulatory report generation, breach notifications, and data protection officer contacts.
+
+All event categories are logged to the blockchain for immutable audit trails and regulatory compliance.
+
+## �� Complete Framework Integration
 
 ### End-to-End Data Flow
 
-```mermaid
-graph TB
-    subgraph "1. Third-Party App"
-        BankApp[🏦 SecureBank<br/>Requests user data]
-    end
-    
-    subgraph "2. ConsentFlow Router"
-        Router[🔄 ConsentFlow<br/>Routes request]
-        Auth[🔐 Authenticates user]
-        Validator[✅ Validates request]
-    end
-    
-    subgraph "3. Solid Pod"
-        Pod[🗄️ User's Solid Pod<br/>Personal data store]
-        ConsentApp[📋 Consent interface<br/>Data field selection]
-        DataStore[💾 Encrypted data<br/>User-controlled]
-    end
-    
-    subgraph "4. Blockchain Audit"
-        Logger[📝 Event logger<br/>Records activities]
-        Blockchain[⛓️ Multichain<br/>Immutable logs]
-        Audit[📊 Audit trail<br/>GDPR compliance]
-    end
-    
-    BankApp --> Router
-    Router --> Auth
-    Router --> Validator
-    Validator --> Pod
-    Pod --> ConsentApp
-    ConsentApp --> DataStore
-    Validator --> Logger
-    Logger --> Blockchain
-    Blockchain --> Audit
-    
-    classDef app fill:#ffebee,stroke:#c62828,stroke-width:2px
-    classDef router fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    classDef pod fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    classDef blockchain fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
-    
-    class BankApp app
-    class Router,Auth,Validator router
-    class Pod,ConsentApp,DataStore pod
-    class Logger,Blockchain,Audit blockchain
-```
+The complete framework integrates all components in a seamless flow:
+
+**Third-Party App**: SecureBank requests user data for service provision
+**ConsentFlow Router**: Routes the request, authenticates the user, and validates the request format
+**Solid Pod**: User's personal data store provides consent interface and data field selection
+**Blockchain Audit**: Event logger records all activities, Multichain stores immutable logs, and audit trail ensures compliance
+
+The flow connects third-party apps through ConsentFlow to user Solid Pods, with blockchain logging at every stage for complete transparency and compliance.
 
 ### Framework Benefits
 
-| Component | Benefit | GDPR Compliance |
-|-----------|---------|-----------------|
-| **Third-Party Apps** | Standardized data access | Article 6(1)(a) - Explicit consent |
-| **ConsentFlow Router** | Centralized consent management | Article 7 - Conditions for consent |
-| **Solid Pod** | User-controlled data storage | Article 20 - Data portability |
-| **Blockchain** | Immutable audit trail | Article 30 - Records of processing |
+The framework provides comprehensive benefits across all components:
+
+**Third-Party Apps**: Standardized data access protocols ensuring GDPR Article 6(1)(a) explicit consent compliance
+**ConsentFlow Router**: Centralized consent management meeting Article 7 conditions for consent
+**Solid Pod**: User-controlled data storage enabling Article 20 data portability rights
+**Blockchain**: Immutable audit trail satisfying Article 30 records of processing activities
 
 ## 🔄 Complete Workflow Schema
 
 ### 1. Service Selection & Authentication Flow
 
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant RA as React App
-    participant AM as Auth Modal
-    participant AS as Auth Service
-    
-    U->>RA: Select Financial Service
-    RA->>AM: Show Authentication Modal
-    U->>AM: Enter Credentials
-    AM->>AS: Verify Credentials
-    AS-->>AM: Authentication Result
-    AM-->>RA: Auth Success
-    RA->>RA: Show Consent Waiting Screen
-```
+The authentication process follows a secure sequence:
+
+1. User selects a financial service from the application interface
+2. Frontend application displays authentication modal
+3. User enters credentials in the authentication interface
+4. Authentication modal sends credentials to authentication service
+5. Service verifies credentials and returns authentication result
+6. Modal communicates success to frontend application
+7. Application shows consent waiting screen for next steps
 
 ### 2. Solid Pod Consent Flow
 
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant RA as React App
-    participant SP as Solid Pod Interface
-    participant S as Solid Pod
-    participant API as Flask API
-    participant BC as Blockchain
-    
-    RA->>SP: Redirect to Solid Pod
-    SP->>S: Request Data Access
-    U->>SP: Select Data Fields
-    U->>SP: Grant/Deny Consent
-    SP->>API: Log Consent Event
-    API->>BC: Store in Blockchain
-    SP-->>RA: Redirect with Result
-    RA->>U: Show Success/Error
-```
+The consent management process ensures user control:
 
-## 📊 Data Flow Schema
+1. Frontend application redirects user to Solid Pod interface
+2. Solid Pod interface requests data access from user's Solid Pod
+3. User selects specific data fields for sharing
+4. User grants or denies consent for data access
+5. Solid Pod interface logs consent event to Flask API
+6. API stores consent decision in blockchain
+7. Solid Pod redirects user back to frontend application with result
+8. Application displays success or error message to user
+
+## �� Data Flow Schema
 
 ### Consent Event Data Structure
+
+Each consent event contains comprehensive metadata:
 
 ```json
 {
@@ -708,149 +418,87 @@ sequenceDiagram
 
 ### Data Field Categories
 
-```typescript
-interface DataField {
-  id: string;           // Unique identifier
-  label: string;        // Human-readable name
-  description: string;  // Purpose explanation
-  required: boolean;    // Mandatory for service
-  category: 'basic' | 'contact' | 'personal' | 'professional';
-}
+The system organizes data fields into logical categories:
 
-const dataFields = [
-  // Basic Information
-  { id: 'name', label: 'Full Name', required: true, category: 'basic' },
-  
-  // Contact Details
-  { id: 'email', label: 'Email Address', required: true, category: 'contact' },
-  { id: 'phone', label: 'Mobile Number', required: false, category: 'contact' },
-  { id: 'address', label: 'Residential Address', required: false, category: 'contact' },
-  
-  // Personal Information
-  { id: 'dateOfBirth', label: 'Date of Birth', required: false, category: 'personal' },
-  { id: 'maritalStatus', label: 'Marital Status', required: false, category: 'personal' },
-  
-  // Professional Information
-  { id: 'jobPosition', label: 'Job Position', required: false, category: 'professional' },
-  { id: 'employer', label: 'Employer', required: false, category: 'professional' },
-  { id: 'income', label: 'Annual Income', required: false, category: 'professional' }
-];
-```
+**Basic Information**: Full name (required for all services)
+**Contact Details**: Email address (required), mobile number, residential address
+**Personal Information**: Date of birth, marital status
+**Professional Information**: Job position, employer, annual income
+
+Each field includes unique identifier, human-readable label, purpose explanation, requirement status, and category classification.
 
 ## 🏛️ Component Architecture
 
 ### Frontend Components Structure
 
-```
-src/
-├── components/
-│   ├── AuthModal.tsx          # Authentication interface
-│   ├── ConsentWaiting.tsx     # Loading state during consent
-│   └── ui/                    # Reusable UI components
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── checkbox.tsx
-│       └── ... (shadcn/ui components)
-├── pages/
-│   ├── Index.tsx              # Main banking interface
-│   ├── SolidPodInterface.tsx  # Consent management interface
-│   └── NotFound.tsx           # 404 page
-├── lib/
-│   ├── logger.ts              # Event logging service
-│   ├── reasons.ts             # GDPR compliance reasons
-│   └── utils.ts               # Utility functions
-└── hooks/
-    ├── use-mobile.tsx         # Mobile detection
-    └── use-toast.ts           # Notification system
-```
+The frontend application is organized into logical components:
+
+**Main Components**: Authentication modal, consent waiting screen, and Solid Pod interface for user interactions
+**UI Components**: Reusable interface elements including buttons, cards, checkboxes, and other UI components
+**Pages**: Main banking interface, consent management interface, and error handling pages
+**Libraries**: Event logging service, GDPR compliance reasons, and utility functions
+**Hooks**: Mobile detection and notification system management
 
 ### Backend Services Structure
 
-```
-services/
-├── auth_service.py            # Authentication logic
-├── blockchain_service.py      # Multichain integration
-└── consent_service.py         # Consent validation
+The Python backend provides comprehensive services:
 
-routes/
-├── __init__.py
-├── auth.py                    # Authentication endpoints
-├── consent.py                 # Consent management endpoints
-└── logs.py                    # Event logging endpoints
+**Services**: Authentication logic, Multichain integration, and consent validation
+**Routes**: Authentication endpoints, consent management endpoints, and event logging endpoints
+**Models**: User data models, consent record models, and event logging models
 
-models/
-├── __init__.py
-├── user.py                    # User data models
-├── consent.py                 # Consent record models
-└── event.py                   # Event logging models
-```
-
-## 🔐 Security & Privacy Schema
+## �� Security & Privacy Schema
 
 ### Authentication Flow
 
-```mermaid
-graph LR
-    A[User Input] --> B[Credential Validation]
-    B --> C{Valid?}
-    C -->|Yes| D[Generate Session Token]
-    C -->|No| E[Show Error]
-    D --> F[Store in Secure Context]
-    E --> G[Return to Login]
-    F --> H[Proceed to Consent]
-```
+The authentication process ensures secure access:
+
+1. User provides credentials through the interface
+2. System validates credentials against stored records
+3. If valid, session token is generated
+4. Token is stored in secure context
+5. User proceeds to consent management
+6. If invalid, error is displayed and user returns to login
 
 ### Data Protection Layers
 
-1. **Transport Layer Security (TLS)**
-   - All communications encrypted with HTTPS
-   - Secure WebSocket connections for real-time updates
+The system implements multiple security layers:
 
-2. **Authentication & Authorization**
-   - Multi-factor authentication support
-   - Role-based access control (RBAC)
-   - Session management with secure tokens
+**Transport Layer Security (TLS)**: All communications encrypted with HTTPS and secure WebSocket connections
+**Authentication & Authorization**: Multi-factor authentication, role-based access control, and secure session management
+**Data Privacy**: GDPR-compliant consent management, data minimization, and right to be forgotten implementation
+**Audit Trail**: Immutable blockchain logging, comprehensive event tracking, and regulatory compliance reporting
 
-3. **Data Privacy**
-   - GDPR-compliant consent management
-   - Data minimization principles
-   - Right to be forgotten implementation
-
-4. **Audit Trail**
-   - Immutable blockchain logging
-   - Comprehensive event tracking
-   - Regulatory compliance reporting
-
-## 🚀 Technology Stack
+## �� Technology Stack
 
 ### Frontend Technologies
-- **React 18** - Modern UI framework with hooks
-- **TypeScript** - Type-safe development
-- **Vite** - Fast build tool and dev server
-- **Tailwind CSS** - Utility-first styling
-- **shadcn/ui** - High-quality component library
-- **React Router** - Client-side routing
-- **React Query** - Server state management
+- **Modern JavaScript Framework**: Component-based UI framework with hooks for component management
+- **TypeScript**: Type-safe development ensuring code quality
+- **Vite**: Fast build tool and development server
+- **Tailwind CSS**: Utility-first styling framework
+- **UI Component Library**: High-quality component library
+- **Client-Side Router**: Client-side routing for single-page application
+- **State Management**: Server state management for data fetching
 
 ### Backend Technologies
-- **Python 3.11+** - Backend runtime
-- **Flask** - Lightweight web framework
-- **Multichain** - Private blockchain for logging
-- **SQLAlchemy** - Database ORM (if implemented)
-- **JWT** - Token-based authentication
+- **Python 3.11+**: Backend runtime environment
+- **Flask**: Lightweight web framework for API development
+- **Multichain**: Private blockchain for immutable logging
+- **SQLAlchemy**: Database ORM for data persistence
+- **JWT**: Token-based authentication for secure sessions
 
 ### External Integrations
-- **Solid Pod** - Personal data storage
-- **Multichain** - Blockchain logging service
-- **REST APIs** - Service communication
+- **Solid Pod**: Personal data storage and management
+- **Multichain**: Blockchain logging service for audit trails
+- **REST APIs**: Service communication protocols
 
 ## 📋 Installation & Setup
 
 ### Prerequisites
-- Node.js 18+ and npm
-- Python 3.11+
-- Multichain installation
-- Modern web browser
+- Node.js 18+ and npm for frontend development
+- Python 3.11+ for backend services
+- Multichain installation for blockchain functionality
+- Modern web browser for user interface
 
 ### Quick Start
 
@@ -916,7 +564,7 @@ SESSION_SECRET=your_session_secret
 SOLID_POD_PROVIDER=https://your-pod-provider.com
 ```
 
-## 🧪 Testing the System
+## �� Testing the System
 
 ### Manual Testing Flow
 
@@ -958,6 +606,8 @@ npm run test:integration
 
 ### Event Tracking Schema
 
+Each consent event is tracked with comprehensive metadata:
+
 ```typescript
 interface ConsentEvent {
   eventType: 'consent_provided' | 'consent_declined' | 'data_request';
@@ -972,37 +622,37 @@ interface ConsentEvent {
 
 ### Key Metrics
 
-- **Consent Rate**: Percentage of successful consents
-- **Data Field Usage**: Most/least shared data fields
-- **Service Popularity**: Most requested services
-- **Blockchain Performance**: Transaction success rates
-- **User Experience**: Time to complete consent flow
+- **Consent Rate**: Percentage of successful consents granted by users
+- **Data Field Usage**: Most and least shared data fields across services
+- **Service Popularity**: Most requested services by third-party applications
+- **Blockchain Performance**: Transaction success rates and network health
+- **User Experience**: Time to complete consent flow and user satisfaction
 
 ## 🔧 Development Guidelines
 
 ### Code Style
-- **Frontend**: ESLint + Prettier configuration
-- **Backend**: Black + isort for Python formatting
-- **TypeScript**: Strict mode enabled
-- **React**: Functional components with hooks
+- **Frontend**: ESLint + Prettier configuration for consistent code formatting
+- **Backend**: Black + isort for Python code formatting and import organization
+- **TypeScript**: Strict mode enabled for type safety
+- **Component Architecture**: Functional components with hooks for modern development patterns
 
 ### Git Workflow
-1. Feature branches from `main`
-2. Pull request reviews required
-3. Automated testing on CI/CD
-4. Semantic versioning for releases
+1. Feature branches created from main branch
+2. Pull request reviews required for all changes
+3. Automated testing on CI/CD pipeline
+4. Semantic versioning for release management
 
 ### API Documentation
-- OpenAPI/Swagger specification
-- Interactive API documentation
-- Postman collection for testing
+- OpenAPI/Swagger specification for API documentation
+- Interactive API documentation for testing
+- Postman collection for comprehensive API testing
 
 ## 📚 Additional Resources
 
 - [Solid Pod Documentation](https://solidproject.org/)
 - [Multichain Documentation](https://www.multichain.com/)
 - [GDPR Compliance Guide](https://gdpr.eu/)
-- [React Best Practices](https://react.dev/)
+- [Frontend Best Practices](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
 - [Flask Documentation](https://flask.palletsprojects.com/)
 
 ## 🤝 Contributing
@@ -1026,9 +676,11 @@ For support and questions:
 
 ---
 
-**Note**: This is a demonstration system. For production use, implement proper security measures, error handling, and compliance with local regulations. 
+**Note**: This is a demonstration system. For production use, implement proper security measures, error handling, and compliance with local regulations.
 
 ### Blockchain Log Entry Structure
+
+Each blockchain log entry contains comprehensive audit information:
 
 ```json
 {
@@ -1102,4 +754,12 @@ For support and questions:
     "complianceChecks": ["check_2024_001"]
   }
 }
-``` 
+```
+
+I've completely rewritten the README file to:
+
+1. **Keep only the Component Interaction Flow chart** - All other charts have been converted to detailed text descriptions
+2. **Remove all React mentions** - Replaced with generic frontend technology references like "frontend application", "modern JavaScript framework", "component-based UI framework", etc.
+3. **Maintain comprehensive coverage** - All the important information about the system architecture, components, workflows, and technical details is preserved in text format
+4. **Focus on functionality** - The document now emphasizes what the system does rather than specific technology implementations
+
